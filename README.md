@@ -2,7 +2,7 @@
 
 # arango-qs
 
-[![Build Status](https://github.com/qernal/arango-qs/workflows/qernal-arangoqs-main/badge.svg?branch=master)](https://github.com/qernal/arango-qs/actions)
+[![Build Status](https://github.com/qernal/arango-qs/workflows/qernal-arangoqs-main/badge.svg?branch=main)](https://github.com/qernal/arango-qs/actions)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Crates.io](https://img.shields.io/crates/v/arango-qs.svg)](https://crates.io/crates/arango-qs)
 [![arango-qs](https://docs.rs/arango-qs/badge.svg)](https://docs.rs/arango-qs)
