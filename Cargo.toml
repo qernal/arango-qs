@@ -1,14 +1,14 @@
 [package]
-name = "arangors"
-version = "0.5.0"
+name = "arango_qs"
+version = "1.0.0"
 edition = "2018"
-authors = [ "Guoli Lyu <guoli-lv@hotmail.com>" ]
+authors = [ "Qernal <support@qernal.com>" ]
 readme = "README.md"
 license = "MIT"
 description = "Rust driver for ArangoDB"
-repository = "https://github.com/fMeow/arangors"
-documentation = "https://docs.rs/arangors"
-keywords = [ "nosql", "database", "client", "driver", "arangoDB" ]
+repository = "https://github.com/qernal/arango-qs"
+documentation = "https://docs.rs/arango-qs"
+keywords = [ "nosql", "database", "client", "driver", "ArangoDB" ]
 exclude = [ ".gitignore", ".github", "tests/**/*" ]
 
 [package.metadata.docs.rs]

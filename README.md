@@ -1,39 +1,42 @@
 <!-- cargo-sync-readme start -->
 
-# arangors
+# arango-qs
 
-[![Build Status](https://github.com/fMeow/arangors/workflows/CI%20%28Linux%29/badge.svg?branch=master)](https://github.com/fMeow/arangors/actions)
+[![Build Status](https://github.com/qernal/arango-qs/workflows/qernal-arangoqs-main/badge.svg?branch=master)](https://github.com/qernal/arango-qs/actions)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
-[![Crates.io](https://img.shields.io/crates/v/arangors.svg)](https://crates.io/crates/arangors)
-[![arangors](https://docs.rs/arangors/badge.svg)](https://docs.rs/arangors)
+[![Crates.io](https://img.shields.io/crates/v/arango-qs.svg)](https://crates.io/crates/arango-qs)
+[![arango-qs](https://docs.rs/arango-qs/badge.svg)](https://docs.rs/arango-qs)
 
-`arangors` is an intuitive rust client for [ArangoDB](https://www.arangodb.com/),
+`arango-qs` is an intuitive rust client for [ArangoDB](https://www.arangodb.com/),
 inspired by [pyArango](https://github.com/tariqdaouda/pyArango).
 
-`arangors` enables you to connect with ArangoDB server, access to database,
+`arango-qs` enables you to connect with ArangoDB server, access to database,
 execute AQL query, manage ArangoDB in an easy and intuitive way,
 both `async` and plain synchronous code with any HTTP ecosystem you love.
 
-## Philosophy of arangors
+This is a fork of [arangors](https://github.com/fMeow/arangors) and should be
+compatible if you're looking to switch
 
-`arangors` is targeted at ergonomic, intuitive and OOP-like API for
+## Philosophy of arango-qs
+
+`arango-qs` is targeted at ergonomic, intuitive and OOP-like API for
 ArangoDB, both top level and low level API for users' choice.
 
 Overall architecture of ArangoDB:
 
 > databases -> collections -> documents/edges
 
-In fact, the design of `arangors` just mimic this architecture, with a
+In fact, the design of `arango-qs` just mimic this architecture, with a
 slight difference that in the top level, there is a connection object on top
 of databases, containing a HTTP client with authentication information in
 HTTP headers.
 
-Hierarchy of arangors:
+Hierarchy of arango-qs:
 > connection -> databases -> collections -> documents/edges
 
 ## Features
 
-By now, the available features of arangors are:
+By now, the available features of arango-qs are:
 
 - make connection to ArangoDB
 - get list of databases and collections
@@ -44,35 +47,7 @@ By now, the available features of arangors are:
 
 ## TODO
 
-- (Done) Milestone 0.1.x
-
-    Synchronous connection based on `reqwest` and full featured AQL query.
-
-- (X) Milestone 0.2.x
-
-    Fill the unimplemented API in `Connection`, `Database`, `Collection` and
-    `Document`.
-
-    ~~In this stage, all operations available for database, collection and
-    document should be implemented.~~
-
-    Well, I am too lazy to fill all API, as the AQL syntax suffices in most
-    cases. Maybe fulfill this goal in 0.4.x .
-
-- (Done) Milestone 0.3.x
-
-    Implement both sync and async client. Also, offers a way to use custom
-    HTTP client ecosystem.
-
-- (WIP) Milestone 1.0.x
-
-    Provides the API related to:
-    - (X) Graph Management
-    - (X) Index Management
-    - ( ) User Management
-
-    In this stage, all operations available for database, collection and
-    document should be implemented.
+Check out the [issues](https://github.com/qernal/arango-qs/issues) for things to be done
 
 ## Glance
 
@@ -86,28 +61,28 @@ Currently out-of-box supported ecosystem are:
 - `reqwest_blocking`
 - `surf_async`
 
-By default, `arangors` use `reqwest_async` as underling HTTP Client to
+By default, `arango-qs` use `reqwest_async` as underling HTTP Client to
 connect with ArangoDB. You can switch other ecosystem in feature gate:
 
 ```toml
 [dependencies]
-arangors = { version = "0.4", features = ["surf_async"], default-features = false }
+arango_qs = { version = "0.4", features = ["surf_async"], default-features = false }
 ```
 
 Or if you want to stick with other ecosystem that are not listed in the
-feature gate, you can get vanilla `arangors` without any HTTP client
+feature gate, you can get vanilla `arango-qs` without any HTTP client
 dependency:
 
 ```toml
 [dependencies]
 ## This one is async
-arangors = { version = "0.4", default-features = false }
+arango_qs = { version = "0.4", default-features = false }
 ## This one is synchronous
-arangors = { version = "0.4", features = ["blocking"], default-features = false }
+arango_qs = { version = "0.4", features = ["blocking"], default-features = false }
 ```
 
-Thanks to `maybe_async`, `arangors` can unify sync and async API and toggle
-with a feature gate. Arangors adopts async first policy.
+Thanks to `maybe_async`, `arango-qs` can unify sync and async API and toggle
+with a feature gate. arango-qs adopts async first policy.
 
 ### Connection
 
@@ -116,14 +91,14 @@ There is three way to establish connections:
 - basic auth
 - no authentication
 
-So are the `arangors` API.
+So are the `arango-qs` API.
 
 Example:
 
 - With authentication
 
 ```rust
-use arangors::Connection;
+use arango_qs::Connection;
 
 // (Recommended) Handy functions
 let conn = Connection::establish_jwt("http://localhost:8529", "username", "password")
@@ -143,7 +118,7 @@ let conn = Connection::establish_without_auth("http://localhost:8529").await.unw
 ### Database && Collection
 
 ```rust
-use arangors::Connection;
+use arango_qs::Connection;
 
 let db = conn.db("test_db").await.unwrap();
 let collection = db.collection("test_collection").await.unwrap();
@@ -197,7 +172,7 @@ let resp: Vec<serde_json::Value> = db
 
 #### Batch query
 
-`arangors` offers a way to manually handle batch query.
+`arango-qs` offers a way to manually handle batch query.
 
 Use `aql_query_batch` to get a cursor, and use `aql_next_batch` to fetch
 next batch and update cursor with the cursor.
@@ -265,7 +240,7 @@ let result: Vec<User> = db
 This function can be used to start a AQL query with bind variables.
 
 ```rust
-use arangors::{Connection, Document};
+use arango_qs::{Connection, Document};
 
 #[derive(Serialize, Deserialize, Debug)]
 struct User {
@@ -295,7 +270,7 @@ vars, limit memory, and all others
 options available.
 
 ```rust
-use arangors::{AqlQuery, Connection, Cursor, Database};
+use arango_qs::{AqlQuery, Connection, Cursor, Database};
 use serde_json::value::Value;
 
 
@@ -316,7 +291,7 @@ Contributions and feed back are welcome following Github workflow.
 
 ### License
 
-`arangors` is provided under the MIT license. See [LICENSE](./LICENSE).
+`arango-qs` is provided under the MIT license. See [LICENSE](./LICENSE).
 An ergonomic [ArangoDB](https://www.arangodb.com/) client for rust.
 
 <!-- cargo-sync-readme end -->
